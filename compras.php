@@ -13,16 +13,14 @@ $db = mysqli_connect('localhost','usuario1','usuario1','proyecto') or die('Error
 <body>
 
 <table>
-  <h1>Tabla Productos</h1>
+  <h1>Tabla Compras</h1>
   <tr>
     <th>ID Compra</th>
     <th>DNI Cliente</th>
     <th>ID Producto</th>
-</tr>
-  <?php
-  $query = mysqli_query($db, "SELECT * FROM COMPRA");
-
-?>
+  </tr>
+  
+  <?php $query = mysqli_query($db, "SELECT * FROM COMPRA");?>
 
 <tr>
   <form action="insert.php" method="post">
@@ -50,6 +48,8 @@ $db = mysqli_connect('localhost','usuario1','usuario1','proyecto') or die('Error
   }
 }
 ?>
+</table>
+<a href="index.php">return</a>
 </body>
 <?php
 mysqli_close($db);

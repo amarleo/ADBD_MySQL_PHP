@@ -1,16 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-
-<body>
-
 <?php
 session_start(); 
 $_SESSION['display_cliente'] = TRUE;
 $_SESSION['display_productos'] = FALSE;
 $_SESSION['display_compras'] = FALSE;
-$db = mysqli_connect('localhost','usuario1','usuario1','proyecto') or die('Error al conectar al servidor MySQL.'); ?>
+$db = mysqli_connect('localhost','usuario1','usuario1','proyecto') or die('Error al conectar al servidor MySQL.'); 
+?>
+<!DOCTYPE html>
+<html>
+<!--<script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>-->
+<head>
+</head>
+
+<body>
 
 <table>
   <h1>Tabla Cliente</h1>
@@ -22,7 +23,6 @@ $db = mysqli_connect('localhost','usuario1','usuario1','proyecto') or die('Error
     <th>Teléfono</th>
     <th>Direccion</th>
     <th>Código Postal</th>
-    <th>Borrado</th>
     </tr>
   <?php
   $query = mysqli_query($db, "SELECT * FROM CLIENTE");
@@ -53,15 +53,18 @@ $db = mysqli_connect('localhost','usuario1','usuario1','proyecto') or die('Error
     <td><?php echo $data['Telefono'];?></td>
     <td><?php echo $data['Direccion'];?></td>
     <td><?php echo $data['Codigo_postal'];?></td>
-    <td><?php echo $data['Borrado'];?></td>
     <td><a href="edit.php?id=<?php echo $data['DNI']; ?>">Edit</a></td>
     <td><a href="delete.php?id=<?php echo $data['DNI']; ?>">Delete</a></td>
   </tr>
-  
+
   <?php
   }
 }
+
+
   ?>
+  </table>
+<a href="index.php">return</a>
 </body>
 <?php
 mysqli_close($db);

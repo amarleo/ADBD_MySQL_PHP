@@ -26,7 +26,7 @@ $db = mysqli_connect('localhost','usuario1','usuario1','proyecto') or die('Error
     <th>Borrado</th>
     </tr>
   <?php
-  $query = mysqli_query($db, "SELECT * FROM PRODUCTOS");
+  $query = mysqli_query($db, "SELECT * FROM PRODUCTOS WHERE Borrado = 0");
 
 ?>
 
@@ -48,7 +48,7 @@ $db = mysqli_connect('localhost','usuario1','usuario1','proyecto') or die('Error
   <?php
   while($data = mysqli_fetch_array($query))
   {
-    if ($data['Borrado'] == 0) { 
+    #if ($data['Borrado'] == 0) { 
   ?>
   <tr>
     <td><?php echo $data['ID_Producto'];?></td>
@@ -60,15 +60,17 @@ $db = mysqli_connect('localhost','usuario1','usuario1','proyecto') or die('Error
     <td><?php echo $data['PVP'];?></td>
     <td><?php echo $data['Image'];?></td>
     <td><?php echo $data['Stock'];?></td>
-    <td><?php echo $data['Borrado'];?></td>
     <td><a href="edit.php?id=<?php echo $data['ID_Producto']; ?>">Edit</a></td>
     <td><a href="delete.php?id=<?php echo $data['ID_Producto']; ?>">Delete</a></td>
   </tr>
-  
+
   <?php
-  }
+  #}
 }
 ?>
+</table>
+<a href="index.php">return</a>
+
 </body>
 <?php
 mysqli_close($db);

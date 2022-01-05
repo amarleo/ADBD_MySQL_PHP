@@ -1,4 +1,5 @@
 <?php
+# Si no se va a usar la base de datos se ha de borrar en este fichero.
 session_start();
 $db = mysqli_connect('localhost','usuario1','usuario1','proyecto') or die('Error al conectar al servidor MySQL.');
 ?>
