@@ -5,19 +5,13 @@ $_SESSION['display_cliente'] = TRUE;
 $_SESSION['display_productos'] = FALSE;
 $_SESSION['display_compras'] = FALSE;
 
-// For extra protection these are the columns of which the user can sort by (in your database table).
-$columns = array('DNI','Nombre','Apellidos', 'Email', 'Telefono', 'Direccion', 'Codigo_postal');
-//$columns = array('DNI');
-// Only get the column if it exists in the above columns array, if it doesn't exist the database table will be sorted by the first item in the columns array.
-$column = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0];
 
-// Get the sort order for the column, ascending or descending, default is ascending.
+$columns = array('DNI','Nombre','Apellidos', 'Email', 'Telefono', 'Direccion', 'Codigo_postal');
+$column = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0];
 $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC';
 
-// Get the result...
 if ($result = mysqli_query($db, "SELECT * FROM CLIENTE ORDER BY $column $sort_order")) {
-  //$result = $mysqli_query($db, "SELECT * FROM CLIENTE ORDER BY $column $sort_order");
-	// Some variables we need for the table.
+  
 	$up_or_down = str_replace(array('ASC','DESC'), array('up','down'), $sort_order); 
 	$asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
 	$add_class = ' class="highlight"';
@@ -43,7 +37,7 @@ if ($result = mysqli_query($db, "SELECT * FROM CLIENTE ORDER BY $column $sort_or
     <th><a href="cliente.php?column=Codigo_postal&order=<?php echo $asc_or_desc; ?>">Código Postal<i class ="<?php echo $column == 'Codigo_postal' ? '-' . $up_or_down : ''; ?>"></i></a></th>
     </tr>
   <?php
-  $query = mysqli_query($db, "SELECT * FROM CLIENTE ORDER BY $order $sort");
+  # $query = mysqli_query($db, "SELECT * FROM CLIENTE ORDER BY $order $sort");
 
 ?>
   <tr>

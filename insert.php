@@ -39,7 +39,6 @@ if (isset($display_cliente) && ($display_cliente == TRUE)) {
 # Inserción de Producto
 
 if (isset($display_productos) && $display_productos == TRUE) {
-    $enterID = $_REQUEST['enterID'];
     $enterNombre = $_REQUEST['enterNombre'];
     $enterFamilia= $_REQUEST['enterFamilia'];
     $enterDescripcion= $_REQUEST['enterDescripcion'];
@@ -50,7 +49,7 @@ if (isset($display_productos) && $display_productos == TRUE) {
     $enterStock= $_REQUEST['enterStock'];
     
 
-    $sql = "INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ('$enterNombre','$enterFamilia','$enterDescripcion','$enterDimensiones','$enterPeso','$enterPVP','$enterImage, '$enterStock', 0)";
+    $sql = "INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ('$enterNombre','$enterFamilia','$enterDescripcion','$enterDimensiones','$enterPeso','$enterPVP','$enterImage', '$enterStock', 0)";
     if(mysqli_query($db, $sql)){
         echo "<h3>ID = '$enterID' data stored in a database successfully</h3>";
     } else{
