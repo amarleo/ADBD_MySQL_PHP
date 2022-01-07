@@ -135,7 +135,7 @@ if (isset($display_compras) && ($display_compras == TRUE)) {
       if(mysqli_query($db, $editarCompra)){
         echo "Updated Successfully!";
         ?>
-        <a href="productos.php?">return</a>
+        <a href="compras.php?">return</a>
         <?php
     } else{
         echo "ERROR: Could not able to execute $editarCompra. " . mysqli_error($db);
