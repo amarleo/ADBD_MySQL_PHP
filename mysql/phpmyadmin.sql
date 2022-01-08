@@ -6,17 +6,17 @@
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS proyecto DEFAULT CHARACTER SET utf8 ;
-USE proyecto ;
+CREATE SCHEMA IF NOT EXISTS 3996491_proyecto DEFAULT CHARACTER SET utf8 ;
+USE 3996491_proyecto;
 
 -- -----------------------------------------------------
 -- Table proyecto.CLIENTE
 -- -----------------------------------------------------
 SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS proyecto.CLIENTE ;
+DROP TABLE IF EXISTS CLIENTE ;
 SET FOREIGN_KEY_CHECKS = 1;
 
-CREATE TABLE IF NOT EXISTS proyecto.CLIENTE (
+CREATE TABLE IF NOT EXISTS CLIENTE (
   DNI VARCHAR(10) NOT NULL,
   Nombre VARCHAR(45) NOT NULL,
   Apellidos VARCHAR(45) NOT NULL,
@@ -26,9 +26,9 @@ CREATE TABLE IF NOT EXISTS proyecto.CLIENTE (
   Codigo_postal VARCHAR(8) NOT NULL,
   Borrado TINYINT NULL,
   PRIMARY KEY (DNI),
-  UNIQUE INDEX Email_UNIQUE (Email ASC) VISIBLE,
-  UNIQUE INDEX DNI_UNIQUE (DNI ASC) VISIBLE,
-  UNIQUE INDEX Telefono_UNIQUE (Telefono ASC) VISIBLE);
+  UNIQUE INDEX Email_UNIQUE (Email ASC),
+  UNIQUE INDEX DNI_UNIQUE (DNI ASC),
+  UNIQUE INDEX Telefono_UNIQUE (Telefono ASC));
 
 
 
@@ -36,10 +36,10 @@ CREATE TABLE IF NOT EXISTS proyecto.CLIENTE (
 -- Table proyecto.PRODUCTOS
 -- -----------------------------------------------------
 SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS proyecto.PRODUCTOS ;
+DROP TABLE IF EXISTS PRODUCTOS ;
 SET FOREIGN_KEY_CHECKS = 1;
 
-CREATE TABLE IF NOT EXISTS proyecto.PRODUCTOS (
+CREATE TABLE IF NOT EXISTS PRODUCTOS (
   ID_Producto INT NOT NULL AUTO_INCREMENT,
   Nombre VARCHAR(45) NOT NULL,
   Familia VARCHAR(45) NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS proyecto.PRODUCTOS (
   Stock INT NOT NULL,
   Borrado TINYINT NULL,
   PRIMARY KEY (ID_Producto),
-  UNIQUE INDEX ID_Producto_UNIQUE (ID_Producto ASC) VISIBLE);
+  UNIQUE INDEX ID_Producto_UNIQUE (ID_Producto ASC));
 
 
 
@@ -59,17 +59,17 @@ CREATE TABLE IF NOT EXISTS proyecto.PRODUCTOS (
 -- Table proyecto.COMPRA
 -- -----------------------------------------------------
 SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS proyecto.COMPRA ;
+DROP TABLE IF EXISTS COMPRA ;
 SET FOREIGN_KEY_CHECKS = 1;
 
-CREATE TABLE IF NOT EXISTS proyecto.COMPRA (
+CREATE TABLE IF NOT EXISTS COMPRA (
   ID_Compra INT UNSIGNED NOT NULL AUTO_INCREMENT,
   CLIENTE_DNI VARCHAR(10) NOT NULL,
   Borrado TINYINT NOT NULL,
   PRODUCTOS_ID_Producto INT NOT NULL,
   PRIMARY KEY (ID_Compra, CLIENTE_DNI),
-  INDEX fk_COMPRA_CLIENTE_idx (CLIENTE_DNI ASC) VISIBLE,
-  INDEX fk_COMPRA_PRODUCTOS1_idx (PRODUCTOS_ID_Producto ASC) VISIBLE,
+  INDEX fk_COMPRA_CLIENTE_idx (CLIENTE_DNI ASC),
+  INDEX fk_COMPRA_PRODUCTOS1_idx (PRODUCTOS_ID_Producto ASC),
   CONSTRAINT fk_COMPRA_CLIENTE
     FOREIGN KEY (CLIENTE_DNI)
     REFERENCES proyecto.CLIENTE (DNI)
@@ -80,32 +80,6 @@ CREATE TABLE IF NOT EXISTS proyecto.COMPRA (
     REFERENCES proyecto.PRODUCTOS (ID_Producto)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-
--- -----------------------------------------------------
--- TRIGGER EMAIL
--- -----------------------------------------------------
-DELIMITER |
-CREATE TRIGGER TRIGGER_insert_email BEFORE INSERT ON CLIENTE 
-  FOR EACH ROW BEGIN
-    IF NEW.Email NOT REGEXP '^[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,63}$' THEN
-      SIGNAL SQLSTATE VALUE '45000'
-        SET MESSAGE_TEXT = '[table:CLIENTE] - Email is not valid';
-    END IF;
-  END;
-|
-DELIMITER ;
-
-DELIMITER ||
-CREATE TRIGGER TRIGGER_insert_DNI BEFORE INSERT ON CLIENTE
-  FOR EACH ROW BEGIN
-    IF NEW.DNI NOT REGEXP '^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]' THEN
-        SIGNAL SQLSTATE VALUE '45000'
-        SET MESSAGE_TEXT = '[table:CLIENTE] - DNI is not valid';
-    END IF;
-  END;
-||
-DELIMITER ;
-
 
 
 -- -----------------------------------------------------

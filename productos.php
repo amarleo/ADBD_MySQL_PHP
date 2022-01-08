@@ -3,7 +3,7 @@ session_start();
 $_SESSION['display_productos'] = TRUE;
 $_SESSION['display_cliente'] = FALSE;
 $_SESSION['display_compras'] = FALSE;
-$db = mysqli_connect('localhost','usuario1','usuario1','proyecto') or die('Error al conectar al servidor MySQL.'); 
+require "bbdd.php"; 
 
 $columns = array('ID_Producto','Nombre','Familia', 'Descripcion', 'Dimensiones', 'Peso', 'PVP', 'Image', 'Stock');
 $column = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0];
@@ -43,7 +43,7 @@ if ($result = mysqli_query($db, "SELECT * FROM PRODUCTOS WHERE Borrado = 0 ORDER
 
 <tr>
   <form action="insert.php" method="post">
-    <td><input type='text' name='enterID'></td>
+    <td></td>
     <td><input type='text' name='enterNombre'></td>
     <td><input type='text' name='enterFamilia'></td>
     <td><input type='text' name='enterDescripcion'></td>

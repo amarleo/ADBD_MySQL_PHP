@@ -1,6 +1,6 @@
 <?php
 session_start(); 
-$db = mysqli_connect('localhost','usuario1','usuario1','proyecto') or die('Error al conectar al servidor MySQL.'); 
+require "bbdd.php"; 
 $_SESSION['display_cliente'] = TRUE;
 $_SESSION['display_productos'] = FALSE;
 $_SESSION['display_compras'] = FALSE;
