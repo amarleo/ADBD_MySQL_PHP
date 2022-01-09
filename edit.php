@@ -121,6 +121,8 @@ if (isset($display_compras) && ($display_compras == TRUE)) {
     <input type="text" name = "ID_Compra" value="<?php echo $data['ID_Compra'];?>">
     <input type="text" name = "CLIENTE_DNI" value="<?php echo $data['CLIENTE_DNI'];?>">
     <input type="text" name = "PRODUCTOS_ID_Producto" value="<?php echo $data['PRODUCTOS_ID_Producto'];?>">
+    <input type="text" name = "Cantidad" value="<?php echo $data['Cantidad'];?>">
+
     <input type="submit" name="update" value="Update">
   </form>
   <?php
@@ -129,8 +131,8 @@ if (isset($display_compras) && ($display_compras == TRUE)) {
     if(isset($_POST['update'])) {
       $newCliente_DNI = $_POST['CLIENTE_DNI'];
       $newPRODUCTOS_ID_Producto = $_POST['PRODUCTOS_ID_Producto'];
-
-      $editarCompra = "UPDATE COMPRA SET CLIENTE_DNI = '$newCliente_DNI', PRODUCTOS_ID_Producto = '$newPRODUCTOS_ID_Producto' WHERE ID_Compra = '$id'";
+      $newCantidad = $_POST['Cantidad'];
+      $editarCompra = "UPDATE COMPRA SET CLIENTE_DNI = '$newCliente_DNI', PRODUCTOS_ID_Producto = '$newPRODUCTOS_ID_Producto', Cantidad = '$newCantidad' WHERE ID_Compra = '$id'";
 
       if(mysqli_query($db, $editarCompra)){
         echo "Updated Successfully!";

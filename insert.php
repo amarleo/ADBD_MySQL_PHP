@@ -66,8 +66,9 @@ if (isset($display_compras) && $display_compras == TRUE) {
     $enterID = $_REQUEST['enterID'];
     $enterDNI = $_REQUEST['enterDNI'];
     $enterIDPROD= $_REQUEST['enterIDPROD'];
+    $enterCantidad = $_REQUEST['enterCantidad'];
 
-    $sql = "INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto) VALUES ('$enterDNI', 0, '$enterIDPROD')";
+    $sql = "INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ('$enterDNI', 0, '$enterIDPROD', '$enterCantidad')";
     if(mysqli_query($db, $sql)){
         echo "<h3>ID = '$enterID' data stored in a database successfully</h3>"; 
 
