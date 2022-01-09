@@ -164,23 +164,57 @@ CREATE TRIGGER TRIGGER_edit_stock BEFORE UPDATE ON COMPRA
 ||
 DELIMITER ;
 
-
 -- -----------------------------------------------------
 -- INSERTS CLIENTE
 -- -----------------------------------------------------
 
 INSERT INTO CLIENTE VALUES ("00000000A", "Juan", "López Gutierrez", "jlogu@gmail.com", "600600600", "Calle La Pardela", "38000", 0);
+INSERT INTO CLIENTE VALUES ("11111111A", "Elizabeth", "Estévez García", "esga@gmail.com", "611611611", "Calle El Cernícalo", "38111", 0);
+INSERT INTO CLIENTE VALUES ("22222222A", "Armando", "Urdaneta Muñoz", "arurmu@gmail.com", "622622622", "Calle El Vencejo", "38222", 0);
+INSERT INTO CLIENTE VALUES ("33333333A", "Agustín", "Marrero Vera", "agumave@gmail.com", "633633633", "Calle La Tórtola", "38333", 0);
+INSERT INTO CLIENTE VALUES ("44444444A", "Rosario", "Villalba Sáncehz", "rovisa@gmail.com", "644644644", "Calle El Cuco", "38444", 0);
+INSERT INTO CLIENTE VALUES ("55555555A", "Lucía", "Santana Flores", "lusaflo@gmail.com", "655655655", "Calle El Paíño", "38555", 0);
+INSERT INTO CLIENTE VALUES ("66666666A", "Darío", "Andrade Ibáñez", "dandi@gmail.com", "666666666", "Calle El Alcatraz", "38666", 0);
+INSERT INTO CLIENTE VALUES ("77777777A", "Lily", "Martínez Murillo", "limarmu@gmail.com", "677677677", "Calle La Garza", "38777", 0);
+INSERT INTO CLIENTE VALUES ("88888888A", "Olivia", "Espinoza Martín", "oliesma@gmail.com", "688688688", "Calle El Avetorillo", "38888", 0);
+INSERT INTO CLIENTE VALUES ("99999999A", "Alejandro", "Pérez Gómez", "alpego@gmail.com", "699699699", "Calle El Martinete", "38999", 0);
+
 
 -- -----------------------------------------------------
 -- INSERTS PRODUCTO
 -- -----------------------------------------------------
 
-INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ("Samsung QLED", "Televisor", "Una tele XD", "55 pulgadas", 10.5, 750.99, "url", 10, 0);
-INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ("Intel Core i7-11700k", "Ordenadores", "Un procesador", "3 x 3 x 0.4", 0.8, 350.0, "url", 10, 0);
+INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ("Corsair Gaming Bundle 4 in 1", "Periféricos", "Teclado, Cascos, alfombrilla y Ratón", "48 x 166 x 34", 1, 99.98, "url", 15, 0);
+INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ("Intel Core i7-11700k", "Componentes", "Procesador de 11ª gen de Intel", "4 x 4 x 0.5", 0.8, 375.11, "url", 7, 0);
+INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ("Razar Kraken Auriculares", "Periféricos", "Auriculares de la marca Razer", "3 x 3 x 0.4", 0.3, 39.98, "url", 11, 0);
+INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ("Lenovo Smart Tab M10 FHD", "Tablets", "Tablet de la marca Lenovo", "15 x 24 x 0.8", 0.46, 213.58, "url", 8, 0);
+INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ("Nanocable USB 3.1 Gen2 a USB-C", "Cables", "Ideal para conectar dispositivos", "1.5", 0.1, 5.14, "url", 25, 0);
+INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ("Xiaomi Mi Electric Scooter 3 Negro", "Patinetes", "Patinete eléctrico de la marca Xiaomi", "1 x 0.9 x 0.3", 13.2, 419.0, "url", 10, 0);
+INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ("MSI MAG CH120 Chair", "Sillas", "Silla gaming negra", "0.6 x 0.5 x 0.1", 27, 264.99, "url", 13, 0);
+INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ("Xiaomi Redmi PoweBanck 20000mAh", "Accesorios", "Powerbank de carga rápida color negro", "0.7 x 0.2 x 0.1", 0.3, 18.6, "url", 2, 0);
+INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ("Avermedia Live Streamer Nexus", "Periféricos", "Centro de control para Streamings", "0.1 x 0.2 x 0.09", 0.85, 368.06, "url", 5, 0);
+INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ("Innjoo BlackEye 4K Dron", "Drones", "Un dron de color plateado", "0.4 x 0.39 x 0.4", 0.16, 138.54, "url", 12, 0);
+INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ("Samsung UE65 65 pulgadas LED UltraHD 4k", "Televisores", "Un televisor perfecto", "1.4 x 0.05 x 0.8", 20.9, 619, "url", 5, 0);
+INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ("Xiaomi Mi Range Extender PRo amplificador", "Redes", "Repetidor con velocidad de 300Mbps", "0.08 x 0.05 x 0.07", 0.4, 8.39, "url", 3, 0);
+INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ("Netatmo NTH01-ES-EC", "Smarthome", "Termostato wifi inteligente", "0.08 x 0.02 x 0.08", 0.25, 172.92, "url", 12, 0);
 
 -- -----------------------------------------------------
 -- INSERTS COMPRA
 -- -----------------------------------------------------
 
-INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("00000000A", 0 , 1, 2);
-INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("00000000A", 0 , 2, 5);
+INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("00000000A", 0 , 11, 1);
+INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("00000000A", 0 , 8, 2);
+INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("11111111A", 0 , 12, 3);
+INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("11111111A", 0 , 13, 8);
+INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("22222222A", 0 , 4, 5);
+INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("33333333A", 0 , 2, 1);
+INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("33333333A", 0 , 3, 2);
+INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("33333333A", 0 , 9, 2);
+INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("44444444A", 0 , 10, 4);
+INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("55555555A", 0 , 5, 20);
+INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("66666666A", 0 , 6, 10);
+INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("77777777A", 0 , 1, 10);
+INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("77777777A", 0 , 3, 5);
+INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("77777777A", 0 , 9, 2);
+INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("88888888A", 0 , 11, 2);
+INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("99999999A", 0 , 7, 2);
