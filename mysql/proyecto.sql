@@ -67,6 +67,7 @@ CREATE TABLE IF NOT EXISTS proyecto.COMPRA (
   CLIENTE_DNI VARCHAR(10) NOT NULL,
   Borrado TINYINT NOT NULL,
   PRODUCTOS_ID_Producto INT NOT NULL,
+  Cantidad INT NOT NULL,
   PRIMARY KEY (ID_Compra, CLIENTE_DNI),
   INDEX fk_COMPRA_CLIENTE_idx (CLIENTE_DNI ASC) VISIBLE,
   INDEX fk_COMPRA_PRODUCTOS1_idx (PRODUCTOS_ID_Producto ASC) VISIBLE,
@@ -81,6 +82,88 @@ CREATE TABLE IF NOT EXISTS proyecto.COMPRA (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
+-- -----------------------------------------------------
+-- TRIGGER EMAIL
+-- -----------------------------------------------------
+DELIMITER |
+CREATE TRIGGER TRIGGER_insert_email BEFORE INSERT ON CLIENTE 
+  FOR EACH ROW BEGIN
+    IF NEW.Email NOT REGEXP '^[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,63}$' THEN
+      SIGNAL SQLSTATE VALUE '45000'
+        SET MESSAGE_TEXT = '[table:CLIENTE] - Email is not valid';
+    END IF;
+  END;
+|
+DELIMITER ;
+
+DELIMITER ||
+CREATE TRIGGER TRIGGER_insert_DNI BEFORE INSERT ON CLIENTE
+  FOR EACH ROW BEGIN
+    IF NEW.DNI NOT REGEXP '^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]' THEN
+        SIGNAL SQLSTATE VALUE '45000'
+        SET MESSAGE_TEXT = '[table:CLIENTE] - DNI is not valid';
+    END IF;
+  END;
+||
+DELIMITER ;
+
+DELIMITER ||
+CREATE TRIGGER TRIGGER_insert_TLF BEFORE INSERT ON CLIENTE
+  FOR EACH ROW BEGIN
+    IF NEW.Telefono NOT REGEXP '[0-9]{9}' THEN
+        SIGNAL SQLSTATE VALUE '45000'
+        SET MESSAGE_TEXT = '[table:CLIENTE] - Telefono is not valid';
+    END IF;
+  END;
+||
+
+
+DELIMITER ||
+CREATE TRIGGER TRIGGER_insert_CodPostal BEFORE INSERT ON CLIENTE
+  FOR EACH ROW BEGIN
+    IF NEW.Codigo_postal NOT REGEXP '[0-9]{5}' THEN
+        SIGNAL SQLSTATE VALUE '45000'
+        SET MESSAGE_TEXT = '[table:CLIENTE] - Código TRIGGER_insert_CodPostal is not valid';
+    END IF;
+  END;
+||
+
+DELIMITER ;
+
+DELIMITER ||
+CREATE TRIGGER TRIGGER_update_stock AFTER INSERT ON COMPRA
+  FOR EACH ROW BEGIN
+    DECLARE x INT;
+    SELECT Stock INTO x FROM PRODUCTOS WHERE ID_Producto = NEW.PRODUCTOS_ID_Producto;
+    IF (x >= NEW.Cantidad) THEN
+    UPDATE PRODUCTOS
+      SET PRODUCTOS.Stock = PRODUCTOS.Stock - NEW.Cantidad
+      WHERE PRODUCTOS.ID_Producto = NEW.PRODUCTOS_ID_Producto;
+    ELSE
+      SIGNAL SQLSTATE VALUE '45000'
+      SET MESSAGE_TEXT = '[table:PRODUCTOS] - There is not enough stock of this product';
+    END IF;
+  END;
+||
+DELIMITER ;
+
+DELIMITER ||
+CREATE TRIGGER TRIGGER_edit_stock BEFORE UPDATE ON COMPRA
+  FOR EACH ROW BEGIN
+    DECLARE x INT;
+    SELECT Stock INTO x FROM PRODUCTOS WHERE ID_Producto = NEW.PRODUCTOS_ID_Producto;
+    IF (x >= NEW.Cantidad) THEN
+    UPDATE PRODUCTOS
+      SET PRODUCTOS.Stock = PRODUCTOS.Stock - NEW.Cantidad
+      WHERE PRODUCTOS.ID_Producto = NEW.PRODUCTOS_ID_Producto;
+    ELSE
+      SIGNAL SQLSTATE VALUE '45000'
+      SET MESSAGE_TEXT = '[table:PRODUCTOS] - There is not enough stock of this product';
+    END IF;
+  END;
+||
+DELIMITER ;
+
 
 -- -----------------------------------------------------
 -- INSERTS CLIENTE
@@ -92,12 +175,12 @@ INSERT INTO CLIENTE VALUES ("00000000A", "Juan", "López Gutierrez", "jlogu@gmai
 -- INSERTS PRODUCTO
 -- -----------------------------------------------------
 
-INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ("Samsung QLED", "Televisor", "Una tele XD", "55 pulgadas", 10.5, 750.99, "url", 20, 0);
-INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ("Intel Core i7-11700k", "Ordenadores", "Un procesador", "3 x 3 x 0.4", 0.8, 350.0, "url", 33, 0);
+INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ("Samsung QLED", "Televisor", "Una tele XD", "55 pulgadas", 10.5, 750.99, "url", 10, 0);
+INSERT INTO PRODUCTOS (Nombre, Familia, Descripcion, Dimensiones, Peso, PVP, Image, Stock, Borrado) VALUES ("Intel Core i7-11700k", "Ordenadores", "Un procesador", "3 x 3 x 0.4", 0.8, 350.0, "url", 10, 0);
 
 -- -----------------------------------------------------
 -- INSERTS COMPRA
 -- -----------------------------------------------------
 
-INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto) VALUES ("00000000A", 0 , 1);
-INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto) VALUES ("00000000A", 0 , 2);
+INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("00000000A", 0 , 1, 2);
+INSERT INTO COMPRA (CLIENTE_DNI, Borrado, PRODUCTOS_ID_Producto, Cantidad) VALUES ("00000000A", 0 , 2, 5);
