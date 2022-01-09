@@ -22,6 +22,43 @@ if ($result = mysqli_query($db, "SELECT * FROM COMPRA WHERE Borrado = 0 ORDER BY
 </head>
 
 <body>
+<?php
+    if(isset($_GET['search'])) {
+      $fields = array('ID_Compra','CLIENTE_DNI','PRODUCTOS_ID_Producto', 'Cantidad');
+      $conditions = array();
+
+      foreach($fields as $field) {
+        //if the field is set and not empty
+        if(isset($_POST[$field]) && $_POST[$field] != '') {
+          $conditions[] = " $field = '" . mysqli_real_escape_string($db,$_POST[$field]) . "'";
+        }
+      }
+      $query = "SELECT * FROM COMPRA";
+      if(count($conditions) > 0) {
+        $query .= " WHERE " . implode(" AND ", $conditions);
+      }
+      echo $query;
+      $result = mysqli_query($db, $query);
+    }
+  ?>
+
+<table>
+  <h1>Búsqueda</h1>
+  <tr>
+    <th>ID_Compra</th>
+    <th>DNI_Cliente</th>
+    <th>ID_Producto</th>
+    <th>Cantidad</th>
+    </tr>
+
+    <form action="compras.php?search" method="post">
+    <td><input type='text' name='ID_Compra'></td>
+    <td><input type='text' name='CLIENTE_DNI'></td>
+    <td><input type='text' name='PRODUCTOS_ID_Producto'></td>
+    <td><input type='text' name='Cantidad'></td>
+    <td><button>Search</button></td>
+    </form>
+  </table>
 
 <table>
   <h1>Tabla Compras</h1>
@@ -64,6 +101,13 @@ if ($result = mysqli_query($db, "SELECT * FROM COMPRA WHERE Borrado = 0 ORDER BY
 }
 ?>
 </table>
+
+<?php if ($result->num_rows == 0) {
+    ?>
+    <p>No se han encontrado resultados</p>
+    <?php
+  }?>
+
 <a href="index.php">return</a>
 </body>
 <?php

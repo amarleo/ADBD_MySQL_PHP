@@ -11,7 +11,7 @@ $columns = array('DNI','Nombre','Apellidos', 'Email', 'Telefono', 'Direccion', '
 $column = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0];
 $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC';
 
-if ($result = mysqli_query($db, "SELECT * FROM CLIENTE ORDER BY $column $sort_order")) {
+if ($result = mysqli_query($db, "SELECT * FROM CLIENTE WHERE Borrado = 0 ORDER BY $column $sort_order")) {
   
 	$up_or_down = str_replace(array('ASC','DESC'), array('up','down'), $sort_order); 
 	$asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
@@ -59,7 +59,7 @@ if ($result = mysqli_query($db, "SELECT * FROM CLIENTE ORDER BY $column $sort_or
     <th>Código Postal</th>
     </tr>
 
-    <form action="cliente.php?search=DNI" method="post">
+    <form action="cliente.php?search=" method="post">
     <td><input type='text' name='DNI'></td>
     <td><input type='text' name='Nombre'></td>
     <td><input type='text' name='Apellidos'></td>
@@ -87,7 +87,7 @@ if ($result = mysqli_query($db, "SELECT * FROM CLIENTE ORDER BY $column $sort_or
 
 ?>
   <tr>
-  <form action="insert.php" method="post">
+  <form action="insert.php?" method="post">
     <td><input type='text' name='enterDNI'></td>
     <td><input type='text' name='enterNombre'></td>
     <td><input type='text' name='enterApellidos'></td>
@@ -95,14 +95,13 @@ if ($result = mysqli_query($db, "SELECT * FROM CLIENTE ORDER BY $column $sort_or
     <td><input type='text' name='enterTelefono'></td>
     <td><input type='text' name='enterDireccion'></td>
     <td><input type='text' name='enterCodigo_Postal'></td>
-    <td><button>Insert</button></td>
+    <td><button>Search</button></td>
     </form>
   </tr>
 <?php
 
-
   while($data = mysqli_fetch_assoc($result)) {
-    if ($data['Borrado'] == 0) { 
+
   ?>
   <tr>
     <td <?php echo $column == 'DNI' ? $add_class : ''; ?>><?php echo $data['DNI'];?></td>
@@ -118,11 +117,17 @@ if ($result = mysqli_query($db, "SELECT * FROM CLIENTE ORDER BY $column $sort_or
 
   <?php
   }
-}
 
 
   ?>
   </table>
+  
+  <?php if ($result->num_rows == 0) {
+    ?>
+    <p>No se han encontrado resultados</p>
+    <?php
+  }?>
+
 <a href="index.php">return</a>
 </body>
 

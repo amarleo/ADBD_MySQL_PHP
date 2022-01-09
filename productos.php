@@ -22,6 +22,53 @@ if ($result = mysqli_query($db, "SELECT * FROM PRODUCTOS WHERE Borrado = 0 ORDER
 </head>
 
 <body>
+<?php
+    if(isset($_GET['search'])) {
+      $fields = array('ID_Producto','Nombre','Familia', 'Descripcion', 'Dimensiones', 'Peso', 'PVP', 'Image', 'Stock');
+      $conditions = array();
+
+      foreach($fields as $field) {
+        //if the field is set and not empty
+        if(isset($_POST[$field]) && $_POST[$field] != '') {
+          $conditions[] = " $field = '" . mysqli_real_escape_string($db,$_POST[$field]) . "'";
+        }
+      }
+      $query = "SELECT * FROM PRODUCTOS";
+      if(count($conditions) > 0) {
+        $query .= " WHERE " . implode(" AND ", $conditions);
+      }
+      echo $query;
+      $result = mysqli_query($db, $query);
+    }
+  ?>
+
+<table>
+  <h1>Búsqueda</h1>
+  <tr>
+    <th>ID_Producto</th>
+    <th>Nombre</th>
+    <th>Familia</th>
+    <th>Descripcion</th>
+    <th>Dimensiones</th>
+    <th>Peso</th>
+    <th>PVP</th>
+    <th>Image</th>
+    <th>Stock</th>
+    </tr>
+
+    <form action="productos.php?search" method="post">
+    <td><input type='text' name='ID_Producto'></td>
+    <td><input type='text' name='Nombre'></td>
+    <td><input type='text' name='Familia'></td>
+    <td><input type='text' name='Descripcion'></td>
+    <td><input type='text' name='Dimensiones'></td>
+    <td><input type='text' name='Peso'></td>
+    <td><input type='text' name='PVP'></td>
+    <td><input type='text' name='Image'></td>
+    <td><input type='text' name='Stock'></td>
+    <td><button>Search</button></td>
+    </form>
+  </table>
 
 <table>
   <h1>Tabla Productos</h1>
@@ -80,6 +127,13 @@ if ($result = mysqli_query($db, "SELECT * FROM PRODUCTOS WHERE Borrado = 0 ORDER
 }
 ?>
 </table>
+
+<?php if ($result->num_rows == 0) {
+    ?>
+    <p>No se han encontrado resultados</p>
+    <?php
+  }?>
+
 <a href="index.php">return</a>
 
 </body>
