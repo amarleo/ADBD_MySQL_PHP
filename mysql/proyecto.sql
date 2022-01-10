@@ -152,10 +152,13 @@ CREATE TRIGGER TRIGGER_edit_stock BEFORE UPDATE ON COMPRA
   FOR EACH ROW BEGIN
     DECLARE x INT;
     SELECT Stock INTO x FROM PRODUCTOS WHERE ID_Producto = NEW.PRODUCTOS_ID_Producto;
-    IF (x >= NEW.Cantidad) THEN
+    IF (x >= NEW.Cantidad) AND (NEW.Borrado = 0) THEN
     UPDATE PRODUCTOS
       SET PRODUCTOS.Stock = PRODUCTOS.Stock - NEW.Cantidad
       WHERE PRODUCTOS.ID_Producto = NEW.PRODUCTOS_ID_Producto;
+    ELSEIF (NEW.Borrado = 1) THEN
+      SIGNAL SQLSTATE VALUE '00'
+      SET MESSAGE_TEXT = '[table:COMPRA] - Compra Deleted';
     ELSE
       SIGNAL SQLSTATE VALUE '45000'
       SET MESSAGE_TEXT = '[table:PRODUCTOS] - There is not enough stock of this product';
@@ -163,7 +166,6 @@ CREATE TRIGGER TRIGGER_edit_stock BEFORE UPDATE ON COMPRA
   END;
 ||
 DELIMITER ;
-
 -- -----------------------------------------------------
 -- INSERTS CLIENTE
 -- -----------------------------------------------------
