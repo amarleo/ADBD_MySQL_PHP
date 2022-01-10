@@ -1,0 +1,28 @@
+head {
+    font-family: Arial, sans-serif;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+a:link, a:visited {
+    background-color: #FFF;
+    color: #000;
+    border: 2px solid skyblue;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+
+}
+a:hover, a:active {
+    background-color: skyblue;
+    color: white;
+}
+
+.index {
+    text-align: center;
+    margin-top: 100px;
+}
